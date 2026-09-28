@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saved Poems - AI Poetry Generator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="logo">✨ AI Poetry Generator</div>
+        <div class="nav-links">
+            <a href="{{ url_for('index') }}">Home</a>
+            <a href="{{ url_for('generate_poem') }}">Generate Poem</a>
+            <a href="{{ url_for('dashboard') }}">Dashboard</a>
+            <a href="{{ url_for('login') }}">Login</a>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div class="welcome">
+            <h1>Saved Poems</h1>
+            <p>Review and manage your poetry collection.</p>
+        </div>
+
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="flash-message">
+                    {% for message in messages %}
+                        <p>{{ message }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        {% if poems %}
+            <ul class="poem-list">
+                {% for poem in poems %}
+                    <li class="poem-item">
+                        <h3>{{ poem.topic }}</h3>
+                        <div class="meta">
+                            <span class="tag">Mood: {{ poem.mood }}</span>
+                            <span class="tag">Saved: {{ poem.created_at.strftime('%Y-%m-%d') if poem.created_at else 'Recently' }}</span>
+                        </div>
+                        <p>{{ poem.poem[:180] }}{% if poem.poem|length > 180 %}...{% endif %}</p>
+                        <div class="poem-actions">
+                            <a href="{{ url_for('delete_poem', poem_id=poem.id) }}" class="btn delete-btn">Delete</a>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <div class="poem-list-box">
+                <p>No poems saved yet. Create your first poem and save it here.</p>
+                <div class="form-actions">
+                    <a href="{{ url_for('generate_poem') }}" class="btn primary-btn">Create a Poem</a>
+                </div>
+            </div>
+        {% endif %}
+    </main>
+
+    <footer>
+        <p>© 2026 AI Poetry Generator | All Rights Reserved</p>
+    </footer>
+</body>
+</html>

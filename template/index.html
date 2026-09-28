@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Poetry Generator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="logo">✨ AI Poetry Generator</div>
+        <div class="nav-links">
+            <a href="{{ url_for('index') }}">Home</a>
+            <a href="{{ url_for('generate_poem') }}">Generate Poem</a>
+            <a href="{{ url_for('dashboard') }}">Dashboard</a>
+            <a href="{{ url_for('poems') }}">Saved Poems</a>
+            <a href="{{ url_for('login') }}">Login</a>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Turn Your Ideas Into Beautiful Poetry</h1>
+            <p>Create inspiring poems using your imagination, a mood, and a few words.</p>
+            <a href="{{ url_for('generate_poem') }}" class="btn primary-btn">✨ Start Creating</a>
+        </div>
+    </section>
+
+    <section class="features">
+        <h2>Why Use AI Poetry Generator?</h2>
+        <div class="feature-grid">
+            <div class="feature-card">
+                <h3>🤖 AI-Powered Creativity</h3>
+                <p>Generate creative poems based on your favorite topics.</p>
+            </div>
+            <div class="feature-card">
+                <h3>🎭 Multiple Moods</h3>
+                <p>Choose romantic, sad, nature, or motivational moods.</p>
+            </div>
+            <div class="feature-card">
+                <h3>💾 Save Your Poems</h3>
+                <p>Store your generated poems and read them anytime.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="generator-section">
+        <div class="generator-card">
+            <h2>Create Your Poem</h2>
+            <p>Enter a topic and select your preferred mood.</p>
+
+            <form method="POST" action="{{ url_for('index') }}">
+                <div class="form-group">
+                    <label for="topic">Enter Your Topic</label>
+                    <input type="text" id="topic" name="topic" placeholder="Example: Moon, Love, Nature..." value="{{ topic }}" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="mood">Select Mood</label>
+                    <select id="mood" name="mood" required>
+                        <option value="romantic" {% if mood == "romantic" %}selected{% endif %}>Romantic</option>
+                        <option value="sad" {% if mood == "sad" %}selected{% endif %}>Sad</option>
+                        <option value="nature" {% if mood == "nature" %}selected{% endif %}>Nature</option>
+                        <option value="motivational" {% if mood == "motivational" %}selected{% endif %}>Motivational</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn primary-btn">Generate Poetry</button>
+            </form>
+        </div>
+    </section>
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div class="container">
+                <div class="flash-message">
+                    {% for message in messages %}
+                        <p>{{ message }}</p>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    {% if poem %}
+    <section class="generated-section">
+        <div class="poem-card">
+            <h2>Your Generated Poem</h2>
+            <div class="poem-content">{{ poem }}</div>
+            <div class="action-buttons">
+                <a href="{{ url_for('generate_poem') }}" class="btn primary-btn">Generate Another</a>
+                <a href="{{ url_for('poems') }}" class="btn secondary-btn">View Saved Poems</a>
+            </div>
+        </div>
+    </section>
+    {% endif %}
+
+    <footer>
+        <p>© 2026 AI Poetry Generator | Python Flask Project</p>
+    </footer>
+</body>
+</html>
+
+                    <option value="sad"
+                        {% if mood == "sad" %}selected{% endif %}>
+                        Sad
+                    </option>
+
+                    <option value="nature"
+                        {% if mood == "nature" %}selected{% endif %}>
+                        Nature
+                    </option>
+
+                    <option value="motivational"
+                        {% if mood == "motivational" %}selected{% endif %}>
+                        Motivational
+                    </option>
+
+                </select>
+
+                <button type="submit">
+                    Generate Poetry
+                </button>
+
+            </form>
+
+        </section>
+
+        {% if poem %}
+
+        <section class="poem-result">
+
+            <h2>Your Generated Poem</h2>
+
+            <div class="poem-text">
+                {{ poem }}
+            </div>
+
+            <button onclick="window.print()">
+                Print Poem
+            </button>
+
+        </section>
+
+        {% endif %}
+
+    </main>
+
+    <footer>
+        <p>© 2026 AI Poetry Generator | Python Flask Project</p>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Generated Poem - AI Poetry Generator</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+
+    <!-- Navigation -->
+
+    <nav class="navbar">
+
+        <div class="logo">
+
+            ✨ AI Poetry Generator
+
+        </div>
+
+        <div class="nav-links">
+
+            <a href="{{ url_for('index') }}">
+                Home
+            </a>
+
+            <a href="{{ url_for('generate_poem') }}">
+                Generate Poem
+            </a>
+
+            <a href="{{ url_for('dashboard') }}">
+                Dashboard
+            </a>
+
+            <a href="{{ url_for('poems') }}">
+                Saved Poems
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- Main Content -->
+
+    <main class="result-container">
+
+        <div class="result-header">
+
+            <h1>
+                ✨ Your Generated Poem
+            </h1>
+
+            <p>
+
+                Your imagination, transformed into beautiful poetry.
+
+            </p>
+
+        </div>
+
+
+        <div class="poem-card">
+
+
+            <!-- Poem Information -->
+
+            <div class="poem-info">
+
+                <span class="tag">
+
+                    📝 Topic: {{ topic }}
+
+                </span>
+
+
+                <span class="tag">
+
+                    😊 Mood: {{ mood }}
+
+                </span>
+
+
+                <span class="tag">
+
+                    🎨 Style: {{ style }}
+
+                </span>
+
+            </div>
+
+
+            <!-- Poem Title -->
+
+            <h2 class="poem-title">
+
+                A Poem Created for You
+
+            </h2>
+
+
+            <!-- Poem Content -->
+
+            <div class="poem-content">
+
+                {{ poem }}
+
+            </div>
+
+
+            <!-- Action Buttons -->
+
+            <div class="action-buttons">
+
+
+                <!-- Save Poem -->
+
+                <form action="{{ url_for('save_poem') }}"
+                      method="POST">
+
+                    <input
+                        type="hidden"
+                        name="topic"
+                        value="{{ topic }}"
+                    >
+
+                    <input
+                        type="hidden"
+                        name="mood"
+                        value="{{ mood }}"
+                    >
+
+                    <input
+                        type="hidden"
+                        name="poem"
+                        value="{{ poem }}"
+                    >
+
+                    <button type="submit"
+                            class="btn primary-btn">
+
+                        💾 Save Generated Poem
+
+                    </button>
+
+                </form>
+
+
+                <!-- Generate Another -->
+
+                <a href="{{ url_for('generate_poem') }}"
+                   class="btn secondary-btn">
+
+                    ✍️ Generate Another
+
+                </a>
+
+
+                <!-- Dashboard -->
+
+                <a href="{{ url_for('dashboard') }}"
+                   class="btn dashboard-btn">
+
+                    🏠 Dashboard
+
+                </a>
+
+            </div>
+
+
+        </div>
+
+    </main>
+
+
+    <!-- Footer -->
+
+    <footer>
+
+        <p>
+
+            © 2026 AI Poetry Generator | Python Flask Project
+
+        </p>
+
+    </footer>
+
+
+</body>
+
+</html>
